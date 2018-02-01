@@ -18,13 +18,13 @@ namespace Nile.Host
                 // display menu
                 char choice = DisplayMenu();
                 // process menu selection    
-                switch (choice)
+                switch (Char.ToUpperInvariant(choice))
                 {
-                    case 'l':
+                    //case 'l':
                     case 'L': ListProducts(); break;
-                    case 'a':
+                    //case 'a':
                     case 'A': AddProduct(); break;
-                    case 'q':
+                    //case 'q':
                     case 'Q': quit = true; break;
                 };
             };
@@ -59,9 +59,10 @@ namespace Nile.Host
                     if (result >= minValue || value != null)
                         return result;
                 }
-                Console.WriteLine("Value must be greater than or equal to: {0}", minValue);
+                string msg = String.Format("Value must be greater than or equal to: {0}", minValue);
+                Console.WriteLine(msg);
+                //Console.WriteLine("Value must be greater than or equal to: {0}", minValue);
                 //Console.WriteLine("Value must be greater than or equal to: " + minValue);
-                Console.WriteLine("geet this here" + result);
             } while (true);
             // out param result is now out of scope
             // Console.WriteLine("geet this here" + result);
@@ -92,33 +93,74 @@ namespace Nile.Host
                 Console.WriteLine("L)ist Products");
                 Console.WriteLine("A)dd Product");
                 Console.WriteLine("Q)uit");
+ 
 
-                string input = Console.ReadLine();
+                string input = Console.ReadLine().ToUpperInvariant();
 
-                if (input == "L" || input == "l")
+                // trim whitespace
+                // input = input.Trim();
+
+                //padding
+                //input = input.PadLeft(10);
+
+                // starts with
+                //input.StartsWith(@"\");
+                //input.EndsWith(@"\");
+
+                //substr
+                // string newValue = input.Substring(0, 10);
+
+
+
+                //if (input == "L" )
+                // case insensitive comparison via 3rd param in .Compare
+                if (String.Compare(input, "L", true) == 0)
                 {
                     return input[0];
-                } else if (input == "A" || input == "a" )
+                } else if (input == "A" )
                 {
                     return input[0];
-                } else if (input == "Q" || input == "q")
+                } else if (input == "Q" )
                 {
                     return input[0];
                 }
 
                 Console.WriteLine("Please choose a valid option");
             } while (true);
+            //Console.WriteLine()
 
         }
 
         private static void ListProducts()
         {
+            //_name.
             // are there any prod
-            if (_name != null && _name != "")
+            //if (_name != null && _name != "")
+            if (!String.IsNullOrEmpty(_name))
             {
-                // display a product
-                Console.WriteLine(_name);
-                Console.WriteLine(_price);
+                // display a product: Name [$price]
+                //                    <description>
+
+                // String formatting
+                //var msg = String.Format("{0} [${1}]", _name, _price);
+
+                // String concat
+                //var msg = _name + " [$" + _price + "]";
+
+                //String concat 2
+                //var msg = String.Concat(_name, " [$", _price, "]");
+                //StringBuilder builder = new StringBuilder(  );
+                //builder.
+
+                // String interpolation
+                string msg = $"{_name} [${_price}]";
+                Console.WriteLine(msg);
+
+
+                //Console.WriteLine(_name);
+                //Console.WriteLine(_price);
+
+                if(!String.IsNullOrEmpty(_description))
                 Console.WriteLine(_description);
             } else
                 Console.WriteLine("No Products");

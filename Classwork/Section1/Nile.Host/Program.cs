@@ -226,6 +226,62 @@ namespace Nile.Host
             double ceiling = Math.Ceiling(rate);
             double floor = ceiling;
         }
-    }
 
+        static void PlayingWithReferences()
+        {
+            // compiler changes code to new string() under the hood
+            var message = "Hello";
+
+            string name = null;
+            name = new string('*', 10);
+
+            object instance = message;
+            //String.Format(instance);
+
+            // is operator (for rare value types)
+            if (instance is string)
+            {
+                string str = (string)instance;
+                Console.WriteLine(str);
+            } else
+                Console.WriteLine("Not a string");
+
+            // as operator (only works with reference types)
+            string str2 = instance as string;
+            if (str2 != null)
+            {
+                Console.WriteLine(str2);
+            } else
+                Console.WriteLine("Not a string");
+
+            //pattern matching
+            if (instance is string str3)
+            {
+                Console.WriteLine(str3);
+            } else
+                Console.WriteLine("Not a string");
+
+
+
+            if (name != null)
+                name = name + "";
+            else
+                name = "";
+
+            // c# coalesce takes first non null value
+            string name2 = name ?? " ";
+
+            // ? if null, doesn't continue evaluating to the right
+            name2 = name2?.PadLeft(10).TrimEnd();
+
+            //name2.PadLeft(10).TrimEnd();
+
+
+
+        }
+
+       
+
+        
+    }
 }

@@ -22,22 +22,37 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            var product = new Product();
-            var name = product.GetName();
+            //PlayingWithProductMembers();
+        }
 
-            product.SetName("Prod A");
+        private void PlayingWithProductMembers()
+        {
+            var product = new Product();
+
+            Decimal.TryParse("123", out decimal price);
+            product.Price = price;
+
+            var name = product.Name;
+            //var name = product.GetName();
+            product.Name = "Product A";
+            product.Price = 50;
+            product.IsDiscontinued = true;
+
+            //product.ActualPrice = 10;
+            var price2 = product.ActualPrice; 
+
+
+            //product.SetName("Prod A");
             product.Description = "None";
             var error = product.Validate();
 
             var str = product.ToString();
-           
+
 
             var productB = new Product();
             //productB.SetName("prod b");
             productB.Description = product.Description;
             error = productB.Validate();
-
-
         }
     }
 }

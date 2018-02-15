@@ -54,5 +54,52 @@ namespace Nile.Windows
             productB.Description = product.Description;
             error = productB.Validate();
         }
+
+        private void OnProductAdd( object sender, EventArgs e )
+        {
+            var form = new ProductDetailForm();
+            form.Text = "Add Product";
+
+            // show form modally
+            var result = form.ShowDialog(this);
+            if (result != DialogResult.OK)
+                return;
+
+            _product = form.Product;
+        }
+
+        private void OnProductRemove( object sender, EventArgs e )
+        {
+            if (!ShowConfirmation("Aer you sure?", "Remove Product"))
+                return;
+            //todo: remove product
+            MessageBox.Show("Not implemented");
+        }
+
+        private void OnProductEdit( object sender, EventArgs e )
+        {
+            MessageBox.Show(this, "Not implemented", "Product edit box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+        }
+
+        private void OnFileExit( object sender, EventArgs e )
+        {
+            MessageBox.Show(this, "Not implemented", "File exit box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+        }
+
+        private void OnHelpAbout( object sender, EventArgs e )
+        {
+            MessageBox.Show(this, "Not implemented", "Help about box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+        }
+
+        private bool ShowConfirmation (string message, string title)
+        {
+            return MessageBox.Show(this, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+
+        }
+
+        private Product _product;
     }
 }

@@ -57,14 +57,17 @@ namespace Nile.Windows
 
         private void OnProductAdd( object sender, EventArgs e )
         {
-            var form = new ProductDetailForm();
-            form.Text = "Add Product";
+            var button = sender as ToolStripMenuItem;
+
+            var form = new ProductDetailForm("Add Product");
+            //form.Text = "Add Product";
 
             // show form modally
             var result = form.ShowDialog(this);
             if (result != DialogResult.OK)
                 return;
 
+            //"add" the product
             _product = form.Product;
         }
 
@@ -73,19 +76,35 @@ namespace Nile.Windows
             if (!ShowConfirmation("Aer you sure?", "Remove Product"))
                 return;
             //todo: remove product
-            MessageBox.Show("Not implemented");
+            // MessageBox.Show("Not implemented");
+            //Remove product
+            _product = null;
         }
 
         private void OnProductEdit( object sender, EventArgs e )
         {
-            MessageBox.Show(this, "Not implemented", "Product edit box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //MessageBox.Show(this, "Not implemented", "Product edit box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (_product == null)
+                                return;
 
+            var form = new ProductDetailForm(_product);
+            //var form = new ProductDetailForm("Edit Product");
+            //form.Text = "Edit Product";
+            //form.Product = _product;
+
+            //Show form modally
+            var result = form.ShowDialog(this);
+                        if (result != DialogResult.OK)
+                               return;
+            
+                        //"Editing" the product
+            _product = form.Product;
         }
 
         private void OnFileExit( object sender, EventArgs e )
         {
-            MessageBox.Show(this, "Not implemented", "File exit box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
+            //MessageBox.Show(this, "Not implemented", "File exit box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            Close();
         }
 
         private void OnHelpAbout( object sender, EventArgs e )

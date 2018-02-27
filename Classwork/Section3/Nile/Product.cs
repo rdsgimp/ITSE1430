@@ -9,6 +9,9 @@ namespace Nile
     /// <summary>Provides information about a product.</summary>
    public class Product
     {
+        /// <summary>Gets or sets the product ID.</summary>
+        public int Id { get; set; }
+
         internal decimal DiscountPercentage = 0.10M;
         private string _name = "";
         private string _description;

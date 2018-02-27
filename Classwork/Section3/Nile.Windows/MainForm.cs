@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Build.Tasks.Deployment.Bootstrapper;
+using Nile.Data.Memory;
 
 namespace Nile.Windows
 {
@@ -22,7 +23,7 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            //PlayingWithProductMembers();
+            RefreshUI();
         }
 
         private void PlayingWithProductMembers()
@@ -67,27 +68,76 @@ namespace Nile.Windows
             if (result != DialogResult.OK)
                 return;
 
-            //"add" the product
-            _product = form.Product;
+            //add to database
+            _database.Add(form.Product, out var message);
+            if (!String.IsNullOrEmpty(message))
+                MessageBox.Show(message);
+
+
+            //get first empty array element and add product to it
+            //var index = FindEmptyProductIndex();
+            //if (index >= 0)
+            //    _products[index] = form.Product;
+
+
+            //for (var index = 0; index < _products.Length; ++index)
+            //{
+            //    if (_products[index] == null)
+            //    {
+            //        _products[index] = form.Product;
+            //        break;
+            //    }
+            //}
+
         }
+
+        //private int FindEmptyProductIndex()
+        //{
+        //    for (var index = 0; index < _products.Length; ++index)
+        //    {
+        //        if (_products[index] == null)
+        //            return index;
+        //    }
+        //    return -1;
+        //}
 
         private void OnProductRemove( object sender, EventArgs e )
         {
-            if (!ShowConfirmation("Aer you sure?", "Remove Product"))
+            //get 1st prod
+            var products = _database.GetAll();
+            var product = (products.Length > 0) ? products[0] : null;
+            if (product == null)
+                return;
+
+            //var index = FindEmptyProductIndex() - 1;
+            //if (index < 0)
+            //    return;
+
+            if (!ShowConfirmation("Are you sure?", "Remove Product"))
                 return;
             //todo: remove product
             // MessageBox.Show("Not implemented");
             //Remove product
-            _product = null;
+            _database.Remove(product.Id);
         }
 
         private void OnProductEdit( object sender, EventArgs e )
         {
-            //MessageBox.Show(this, "Not implemented", "Product edit box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (_product == null)
-                                return;
+            //get 1st prod
+            var products = _database.GetAll();
+            var product = (products.Length > 0) ? products[0] : null;
+            if (product == null)
+                return;
 
-            var form = new ProductDetailForm(_product);
+            //var index = FindEmptyProductIndex() -1;
+            //if (index < 0)
+            //    return;
+
+            //MessageBox.Show(this, "Not implemented", "Product edit box", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                       // if (_products == null)
+                       //         return;
+
+            var form = new ProductDetailForm(product);
             //var form = new ProductDetailForm("Edit Product");
             //form.Text = "Edit Product";
             //form.Product = _product;
@@ -96,9 +146,12 @@ namespace Nile.Windows
             var result = form.ShowDialog(this);
                         if (result != DialogResult.OK)
                                return;
-            
-                        //"Editing" the product
-            _product = form.Product;
+
+            //update the product
+            _database.Edit(form.Product, out var message);
+            if (!String.IsNullOrEmpty(message))
+                MessageBox.Show(message);
+            //_products[index] = form.Product;
         }
 
         private void OnFileExit( object sender, EventArgs e )
@@ -113,12 +166,20 @@ namespace Nile.Windows
 
         }
 
+        private void RefreshUI()
+        {
+            //get prods
+            var products = _database.GetAll();
+
+            //bind to grid
+            dataGridView1.DataSource = products;
+        }
         private bool ShowConfirmation (string message, string title)
         {
             return MessageBox.Show(this, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
 
         }
 
-        private Product _product;
+        private MemoryProductDatabase _database = new MemoryProductDatabase();
     }
 }

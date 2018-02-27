@@ -75,6 +75,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Nile.Product.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -89,6 +90,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nile.Data.Memory\Nile.Data.Memory.csproj">
+      <Project>{7556a2b7-2347-46fd-ac7b-819fd9942796}</Project>
+      <Name>Nile.Data.Memory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nile\Nile.csproj">
       <Project>{b44187a5-d205-4651-b13e-e32dc37a5b03}</Project>
       <Name>Nile</Name>

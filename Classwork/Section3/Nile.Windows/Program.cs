@@ -1,0 +1,23 @@
+﻿using System;
+using System.Windows.Forms;
+using Microsoft.Build.Tasks.Deployment.Bootstrapper;
+using Nile;
+
+namespace Nile.Windows
+{
+    static class Program
+    {
+
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
+        }
+
+    }
+}

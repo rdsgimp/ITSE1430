@@ -73,7 +73,7 @@ namespace Nile.Windows
             if (!String.IsNullOrEmpty(message))
                 MessageBox.Show(message);
 
-
+            RefreshUI();
             //get first empty array element and add product to it
             //var index = FindEmptyProductIndex();
             //if (index >= 0)
@@ -104,8 +104,7 @@ namespace Nile.Windows
         private void OnProductRemove( object sender, EventArgs e )
         {
             //get 1st prod
-            var products = _database.GetAll();
-            var product = (products.Length > 0) ? products[0] : null;
+            var product = GetSelectedProduct();
             if (product == null)
                 return;
 
@@ -119,13 +118,17 @@ namespace Nile.Windows
             // MessageBox.Show("Not implemented");
             //Remove product
             _database.Remove(product.Id);
+            RefreshUI();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
         {
-            //get 1st prod
-            var products = _database.GetAll();
-            var product = (products.Length > 0) ? products[0] : null;
+            var product = GetSelectedProduct();
+            if (product == null)
+                return;
+            ////get 1st prod
+            //var products = _database.GetAll();
+            //var product = (products.Length > 0) ? products[0] : null;
             if (product == null)
                 return;
 
@@ -148,10 +151,12 @@ namespace Nile.Windows
                                return;
 
             //update the product
+            form.Product.Id = product.Id;
             _database.Edit(form.Product, out var message);
             if (!String.IsNullOrEmpty(message))
                 MessageBox.Show(message);
             //_products[index] = form.Product;
+            RefreshUI();
         }
 
         private void OnFileExit( object sender, EventArgs e )
@@ -166,10 +171,18 @@ namespace Nile.Windows
 
         }
 
+        private Product GetSelectedProduct()
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+                return dataGridView1.SelectedRows[0].DataBoundItem as Product;
+            return null;
+        }
+
         private void RefreshUI()
         {
             //get prods
             var products = _database.GetAll();
+
 
             //bind to grid
             dataGridView1.DataSource = products;

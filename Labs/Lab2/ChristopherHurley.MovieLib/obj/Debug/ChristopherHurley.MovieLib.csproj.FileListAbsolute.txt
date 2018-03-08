@@ -4,3 +4,9 @@ C:\Users\GimP\Desktop\repos\ITSE1430\Labs\Lab2\ChristopherHurley.MovieLib\obj\De
 C:\Users\GimP\Desktop\repos\ITSE1430\Labs\Lab2\ChristopherHurley.MovieLib\obj\Debug\ChristopherHurley.MovieLib.dll
 C:\Users\GimP\Desktop\repos\ITSE1430\Labs\Lab2\ChristopherHurley.MovieLib\obj\Debug\ChristopherHurley.MovieLib.pdb
 C:\Users\GimP\Desktop\repos\ITSE1430\Labs\Lab2\ChristopherHurley.MovieLib\obj\Debug\ChristopherHurley.MovieLib.csprojResolveAssemblyReference.cache
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib\bin\Debug\ChristopherHurley.MovieLib.dll
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib\bin\Debug\ChristopherHurley.MovieLib.pdb
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib\obj\Debug\ChristopherHurley.MovieLib.csprojResolveAssemblyReference.cache
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib\obj\Debug\ChristopherHurley.MovieLib.csproj.CoreCompileInputs.cache
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib\obj\Debug\ChristopherHurley.MovieLib.dll
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib\obj\Debug\ChristopherHurley.MovieLib.pdb

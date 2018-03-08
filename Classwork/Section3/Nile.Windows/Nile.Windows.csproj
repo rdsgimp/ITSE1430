@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{13CFA713-342C-4567-9FB6-5A4C3E2DE09A}</ProjectGuid>
+    <ProjectGuid>{BD9C86BB-6D5E-4E80-9528-7BFB54CED37D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Nile.Windows</RootNamespace>
     <AssemblyName>Nile.Windows</AssemblyName>
@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -91,11 +91,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nile.Data.Memory\Nile.Data.Memory.csproj">
-      <Project>{7556a2b7-2347-46fd-ac7b-819fd9942796}</Project>
+      <Project>{f95ae9be-fb3f-41c6-b6fe-a7a4c32edeff}</Project>
       <Name>Nile.Data.Memory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nile\Nile.csproj">
-      <Project>{b44187a5-d205-4651-b13e-e32dc37a5b03}</Project>
+      <Project>{f3b8dd6e-7216-496a-bd6a-bee83dbf9cd4}</Project>
       <Name>Nile</Name>
     </ProjectReference>
   </ItemGroup>

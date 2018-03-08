@@ -12,3 +12,17 @@ C:\Users\GimP\Desktop\repos\ITSE1430\Labs\Lab2\ChristopherHurley.MovieLib.Window
 C:\Users\GimP\Desktop\repos\ITSE1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.MainForm.resources
 C:\Users\GimP\Desktop\repos\ITSE1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.MovieDetailForm.resources
 C:\Users\GimP\Desktop\repos\ITSE1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.AboutBox1.resources
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\bin\Debug\ChristopherHurley.MovieLib.Windows.exe.config
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\bin\Debug\ChristopherHurley.MovieLib.Windows.exe
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\bin\Debug\ChristopherHurley.MovieLib.Windows.pdb
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\bin\Debug\ChristopherHurley.MovieLib.dll
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\bin\Debug\ChristopherHurley.MovieLib.pdb
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.csprojResolveAssemblyReference.cache
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.AboutBox1.resources
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.MainForm.resources
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.MovieDetailForm.resources
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.Properties.Resources.resources
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.csproj.GenerateResource.Cache
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.csproj.CoreCompileInputs.cache
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.exe
+C:\Users\GimP\Desktop\repos\ITSE-1430\Labs\Lab2\ChristopherHurley.MovieLib.Windows\obj\Debug\ChristopherHurley.MovieLib.Windows.pdb

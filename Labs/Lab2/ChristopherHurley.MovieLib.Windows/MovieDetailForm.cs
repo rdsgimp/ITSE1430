@@ -130,6 +130,13 @@ namespace ChristopherHurley.MovieLib.Windows
         {
             var textbox = sender as TextBox;
             var price = ConvertToInt(textbox);
+            if (price == -1)
+            {
+                _errorProvider.SetError(textbox, "Testing auto change invalid to 0");
+
+                textbox.Text = "0";
+            }
+
             if (price < 0)
             {
                 _errorProvider.SetError(textbox, "Length must be >= 0");

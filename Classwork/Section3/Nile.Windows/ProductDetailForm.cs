@@ -1,54 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Nile.Windows
 {
-    public /*abstract*/ partial class ProductDetailForm : Form
+    /// <summary>Provides a form for adding/editing <see cref="Product"/>.</summary>
+    public partial class ProductDetailForm : Form
     {
-        #region Consruction
+        #region Construction
+
         public ProductDetailForm()
         {
             InitializeComponent();
-            // ^does a few things
-            // 1) alloc mem
-            // 2)field initializers (get/set = 0)
-            // 3) constructor -> ctor
         }
-        public ProductDetailForm(string title) : this() // : base ()
-        {
-            //InitializeComponent(); // 
 
+        public ProductDetailForm( string title ) : this()
+        {
             Text = title;
         }
 
         public ProductDetailForm( Product product ) :this("Edit Product")
         {
-           // InitializeComponent();
-           // Text = "Edit Product";
             Product = product;
         }
-
         #endregion
 
+        /// <summary>Gets or sets the product being edited.</summary>
         public Product Product { get; set; }
-
-        //public virtual DialogResult ShowDialogEx()
-        //{
-        //    return ShowDialog();
-        //}
-
+        
         protected override void OnLoad( EventArgs e )
         {
-            //call base type
-            //Onload(e);
-            base.OnLoad( e);
+            base.OnLoad(e);
 
             //Load product
             if (Product != null)
@@ -62,46 +44,55 @@ namespace Nile.Windows
             ValidateChildren();
         }
 
-private void OnCancel( object sender, EventArgs e )
+        #region Event Handlers
+
+        private void OnCancel( object sender, EventArgs e )
         {
         }
 
         private void OnSave( object sender, EventArgs e )
         {
+            //Force validation of child controls
             if (!ValidateChildren())
-            {
                 return;
-            }
 
-            //create product //TODO:add validation
-            var product = new Product();
-            product.Name = _txtName.Text;
-            product.Description = _txtDescription.Text;
-            product.Price = ConvertToPrice(_txtPrice);
-            product.IsDiscontinued = _chkIsDiscontinued.Checked;
+            // Create product - using object initializer syntax
+            var product = new Product() {
+                Name = _txtName.Text,
+                Description = _txtDescription.Text,
+                Price = ConvertToPrice(_txtPrice),
+                IsDiscontinued = _chkIsDiscontinued.Checked,
+            };
 
-            //validate
-            var message = product.Validate();
-            if (!String.IsNullOrEmpty(message))
+            //Validate product using IValidatableObject
+            //var message = product.Validate();
+            //if (!String.IsNullOrEmpty(message))
+            //{
+            //    DisplayError(message);
+            //    return;
+            //};
+            var errors = ObjectValidator.Validate(product);
+            if (errors.Count() > 0)
             {
-                //_errorProvider.SetError(_txtName, message);
-                DisplayError(message);
+                //Get first error
+                DisplayError(errors.ElementAt(0).ErrorMessage);
                 return;
-            }
-
+            };            
+            
             //Return from form
             Product = product;
             DialogResult = DialogResult.OK;
-            //DialogResult = DialogResult.None;
+
             Close();
         }
-
-        private void DisplayError (string message)
+        #endregion
+        
+        private void DisplayError ( string message )
         {
-            MessageBox.Show(this, message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(this, message, "Error", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
         }
-
-        private decimal ConvertToPrice (TextBox control)
+        private decimal ConvertToPrice ( TextBox control )
         {
             if (Decimal.TryParse(control.Text, out var price))
                 return price;
@@ -109,21 +100,23 @@ private void OnCancel( object sender, EventArgs e )
             return -1;
         }
 
-        private void _txtName_Validating( object sender, CancelEventArgs e )
+        private void _txtName_Validating( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var textbox = sender as TextBox;
 
             if (String.IsNullOrEmpty(textbox.Text))
             {
+
                 _errorProvider.SetError(textbox, "Name is required");
                 e.Cancel = true;
             } else
                 _errorProvider.SetError(textbox, "");
         }
 
-        private void _txtPrice_Validating( object sender, CancelEventArgs e )
+        private void _txtPrice_Validating( object sender, System.ComponentModel.CancelEventArgs e )
         {
             var textbox = sender as TextBox;
+
             var price = ConvertToPrice(textbox);
             if (price < 0)
             {

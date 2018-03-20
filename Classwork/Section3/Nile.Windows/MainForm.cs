@@ -124,8 +124,8 @@ namespace Nile.Windows
             //products[0].Name = "Product A";
 
             //Bind to grid
-            //var items = new BindingList<Product>(products.ToList());
-            dataGridView1.DataSource = new List<Product>(products);
+            productBindingSource.DataSource = new List<Product>(products);
+            //dataGridView1.DataSource = new List<Product>(products);
         }
 
         private bool ShowConfirmation ( string message, string title )

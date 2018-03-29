@@ -17,7 +17,7 @@ namespace Nile.Data
         /// <paramref name="product"/> is null or invalid.
         /// A product with the same name already exists.
         /// </remarks>
-        Product Add( Product product, out string message );
+        Product Add( Product product );
 
         /// <summary>Gets all the products.</summary>
         /// <returns>The list of products.</returns>
@@ -41,6 +41,6 @@ namespace Nile.Data
         /// A product with the same name already exists.
         /// The product does not exist.
         /// </remarks>
-        Product Update( Product product, out string message );                
+        Product Update( Product product);                
     }
 }

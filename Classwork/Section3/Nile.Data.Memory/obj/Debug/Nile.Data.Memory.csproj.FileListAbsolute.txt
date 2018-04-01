@@ -6,3 +6,12 @@ C:\Users\christopher.hurley.ALL\source\repos\ITSE1430\Classwork\Section3\Nile.Da
 C:\Users\christopher.hurley.ALL\source\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\obj\Debug\Nile.Data.Memory.csproj.CoreCompileInputs.cache
 C:\Users\christopher.hurley.ALL\source\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\obj\Debug\Nile.Data.Memory.dll
 C:\Users\christopher.hurley.ALL\source\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\obj\Debug\Nile.Data.Memory.pdb
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\bin\Debug\Nile.Data.Memory.dll
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\bin\Debug\Nile.Data.Memory.pdb
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\bin\Debug\Nile.dll
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\bin\Debug\Nile.pdb
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\obj\Debug\Nile.Data.Memory.csprojResolveAssemblyReference.cache
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\obj\Debug\Nile.Data.Memory.csproj.CoreCompileInputs.cache
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\obj\Debug\Nile.Data.Memory.csproj.CopyComplete
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\obj\Debug\Nile.Data.Memory.dll
+C:\Users\GimP\Desktop\repos\ITSE1430\Classwork\Section3\Nile.Data.Memory\obj\Debug\Nile.Data.Memory.pdb

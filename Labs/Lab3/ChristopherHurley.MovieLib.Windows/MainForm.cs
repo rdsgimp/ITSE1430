@@ -33,6 +33,34 @@ namespace ChristopherHurley.MovieLib.Windows
 
         protected override void OnLoad( EventArgs e ) => base.OnLoad(e);
 
+        //Called when a cell is double clicked
+        private void OnCellDoubleClick( object sender, DataGridViewCellEventArgs e )
+        {
+            var movie = GetSelectedMovie();
+            if (movie == null)
+                return;
+
+            OnProductEdit(sender, e);
+        }
+
+        ////Called when a key is pressed while in a cell
+        //private void OnCellKeyDown( object sender, KeyEventArgs e )
+        //{
+        //    var product = GetSelectedProduct();
+        //    if (product == null)
+        //        return;
+
+        //    if (e.KeyCode == Keys.Delete)
+        //    {
+        //        e.Handled = true;
+        //        DeleteProduct(product);
+        //    } else if (e.KeyCode == Keys.Enter)
+        //    {
+        //        e.Handled = true;
+        //        EditProduct(product);
+        //    };
+        //}
+
 
 
         private void OnProductAdd( object sender, EventArgs e )

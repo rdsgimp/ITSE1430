@@ -167,6 +167,10 @@
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(680, 350);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnCellDoubleClick);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnCellKeyDown);
+
+
             // 
             // titleDataGridViewTextBoxColumn
             // 

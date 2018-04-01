@@ -43,23 +43,28 @@ namespace ChristopherHurley.MovieLib.Windows
             OnProductEdit(sender, e);
         }
 
-        ////Called when a key is pressed while in a cell
-        //private void OnCellKeyDown( object sender, KeyEventArgs e )
-        //{
-        //    var product = GetSelectedProduct();
-        //    if (product == null)
-        //        return;
+        //Called when a key is pressed while in a cell
+        private void OnCellKeyDown( object sender, KeyEventArgs e )
+        {
+            var movie = GetSelectedMovie();
+            if (movie == null)
+                return;
 
-        //    if (e.KeyCode == Keys.Delete)
-        //    {
-        //        e.Handled = true;
-        //        DeleteProduct(product);
-        //    } else if (e.KeyCode == Keys.Enter)
-        //    {
-        //        e.Handled = true;
-        //        EditProduct(product);
-        //    };
-        //}
+            //not 100% sure why Delete is handled here when it seems to work from the menu item shortcut key?
+            //does this account for backspace or something similar? 
+            //TODO:need to remember to ask in class
+            //if (e.KeyCode == Keys.Delete)
+            //{
+            //    e.Handled = true;
+            //    OnProductRemove(sender, e);
+            //} else 
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                OnProductEdit(sender, e);
+            };
+        }
 
 
 

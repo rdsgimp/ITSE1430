@@ -1,7 +1,7 @@
 ﻿/* Christopher Hurley
  * ITSE 1430
- * Lab 2
- * 28 Feb, 2018
+ * Lab 3
+ * 1 April, 2018
  */
 using System;
 using System.Collections.Generic;

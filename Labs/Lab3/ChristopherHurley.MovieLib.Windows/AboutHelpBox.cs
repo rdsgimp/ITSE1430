@@ -1,7 +1,7 @@
 ﻿/* Christopher Hurley
  * ITSE 1430
- * Lab 2
- * 28 Feb, 2018
+ * Lab 3
+ * 1 April, 2018
  */
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,10 @@ namespace ChristopherHurley.MovieLib.Windows
             InitializeComponent();
             Text = String.Format("About {0}", AssemblyTitle);
             labelProductName.Text = AssemblyProduct;
-            labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            //labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            //manually set version string
+            labelVersion.Text = "Version 1.0.2.2";
+
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;
             textBoxDescription.Text = AssemblyDescription;

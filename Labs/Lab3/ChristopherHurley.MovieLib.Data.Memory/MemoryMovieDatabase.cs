@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* Christopher Hurley
+ * ITSE 1430
+ * Lab 3
+ * 1 April, 2018
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,48 +17,17 @@ namespace ChristopherHurley.MovieLib.Data.Memory
         /// <summary>Initializes an instance of the <see cref="MemoryMovieDatabase"/> class.</summary>
         public MemoryMovieDatabase()
         {
-            //Array version
-            //var prods = new Movie[]
-            //var prods = new []
-            //    {
-            //        new Movie(),
-            //        new Movie()
-            //    };
-
-            //_Movies = new Movie[25];
+            /// Pre load some movie data
             _movies = new List<Movie>()
             {
-                new Movie() { Id = _nextId++, Title = "iPhone X",
-                                IsOwned = true, Length = 1500, },
-                new Movie() { Id = _nextId++, Title = "Windows Phone",
-                                IsOwned = true, Length = 15, },
-                new Movie() { Id = _nextId++, Title = "Samsung S8",
-                                IsOwned = false, Length = 800 }
+                new Movie() { Id = _nextId++, Title = "A Sample Movie",
+                                IsOwned = true, Length = 90, },
+                new Movie() { Id = _nextId++, Title = "That one movie",
+                                IsOwned = true, Length = 81, Description = "The one with that guy from that other movie" },
+                new Movie() { Id = _nextId++, Title = "That other movie",
+                                IsOwned = false, Length = 88, Description = "Has that one guy, with the face, you know the one." }
             };
-
-            //var Movie = new Movie() {
-            //    Id = _nextId++,
-            //    Title = "iPhone X",
-            //    IsDiscontinued = true,
-            //    Price = 1500,
-            //};
-            //_Movies.Add(Movie);
-
-            //Movie = new Movie() {
-            //    Id = _nextId++,
-            //    Title = "Windows Phone",
-            //    IsDiscontinued = true,
-            //    Price = 15,
-            //};
-            //_Movies.Add(Movie);
-
-            //Movie = new Movie {
-            //    Id = _nextId++,
-            //    Title = "Samsung S8",
-            //    IsDiscontinued = false,
-            //    Price = 800
-            //};
-            //_Movies.Add(Movie);
+            
         }
 
         /// <summary>Add a new Movie.</summary>
@@ -87,7 +61,6 @@ namespace ChristopherHurley.MovieLib.Data.Memory
             var existing = GetCore(Movie.Id);
 
             // Clone the object
-            //_Movies[existingIndex] = Clone(Movie);
             Copy(existing, Movie);
 
             //Return a copy
@@ -95,7 +68,7 @@ namespace ChristopherHurley.MovieLib.Data.Memory
         }
 
         /// <summary>Gets all Movies.</summary>
-        /// <returns>The list of Movies.</returns>
+        /// <returns>The list (a copy) of Movies.</returns>
         protected override IEnumerable<Movie> GetAllCore()
         {
             // iterator syntax
@@ -105,20 +78,6 @@ namespace ChristopherHurley.MovieLib.Data.Memory
                     yield return Clone(Movie);
             }
         }
-        //public IEnumerable<Movie> GetAll()
-        //{
-        //    //Return a copy so caller cannot change the underlying data
-        //    var items = new List<Movie>();
-
-        //    //for (var index = 0; index < _Movies.Length; ++index)
-        //    foreach (var Movie in _Movies)
-        //    {
-        //        if (Movie != null)
-        //            items.Add(Clone(Movie));
-        //    };
-
-        //    return items;
-        //}
 
         /// <summary>Removes a Movie.</summary>
         /// <param Title="id">The Movie ID.</param>
@@ -150,18 +109,8 @@ namespace ChristopherHurley.MovieLib.Data.Memory
             target.IsOwned = source.IsOwned;
         }
 
-        //private int FindEmptyMovieIndex()
-        //{
-        //    for (var index = 0; index < _Movies.Length; ++index)
-        //    {
-        //        if (_Movies[index] == null)
-        //            return index;
-        //    };
 
-        //    return -1;
-        //}
-
-        //Find a Movie by its ID
+        //Find a Movie by its name
         protected override Movie GetMovieByNameCore( string Title )
         {
             //for (var index = 0; index < _Movies.Length; ++index)

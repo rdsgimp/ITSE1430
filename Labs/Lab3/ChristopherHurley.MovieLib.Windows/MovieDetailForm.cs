@@ -1,8 +1,8 @@
 ﻿
 /* Christopher Hurley
  * ITSE 1430
- * Lab 2
- * 28 Feb, 2018
+ * Lab 3
+ * 1 April, 2018
  */
 using System;
 using System.Collections.Generic;
@@ -57,7 +57,7 @@ namespace ChristopherHurley.MovieLib.Windows
         {
             base.OnLoad(e);
 
-            //Load product
+            //Load movie
             if (Movie != null)
             {
                 _txtName.Text = Movie.Title;
@@ -85,16 +85,7 @@ namespace ChristopherHurley.MovieLib.Windows
                 Title = _txtName.Text,
                 Description = _txtDescription.Text,
                 Length = ConvertToInt(_txtPrice),
-                IsOwned = _chkIsOwned.Checked
-            };
-
-            ////validate
-            //var message = movie.Validate();
-            //if (!String.IsNullOrEmpty(message))
-            //{
-            //    DisplayError(message);
-            //    return;
-            //}
+                IsOwned = _chkIsOwned.Checked };
 
             var errors = ObjectValidator.Validate(movie);
             if (errors.Count() > 0)

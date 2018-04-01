@@ -1,7 +1,7 @@
 ﻿/* Christopher Hurley
  * ITSE 1430
- * Lab 2
- * 28 Feb, 2018
+ * Lab 3
+ * 1 April, 2018
  */
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,6 @@ namespace ChristopherHurley.MovieLib.Windows
             var button = sender as ToolStripMenuItem;
 
             var form = new MovieDetailForm("Add Movie");
-            //form.Text = "Add Product";
 
             // show form modally
             var result = form.ShowDialog(this);
@@ -48,28 +47,15 @@ namespace ChristopherHurley.MovieLib.Windows
                 return;
 
             //"add" the movie
-            //_movie = form.Movie;
             _movie.Add(form.Movie, out var message);
             if (!String.IsNullOrEmpty(message))
                 MessageBox.Show(message);
 
             RefreshUI();
-
-
         }
 
         private void OnProductRemove( object sender, EventArgs e )
         {
-            //// check for null condition first, or else we'll get a null pointer error when displaying the title in the message box
-            //if (_movie == null)
-            //{
-            //    MessageBox.Show(this, "No movie to delete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Question);
-            //    return;
-            //}
-            //if (!ShowConfirmation("Are you sure you want to remove \n" + _movie.ToString() + "? \nThis cannot be undone.", "Remove Movie: " + _movie.ToString()))
-            //    return;
-
-            //_movie = null;
             var movie = GetSelectedMovie();
             if (movie == null)
                 return;
@@ -77,20 +63,14 @@ namespace ChristopherHurley.MovieLib.Windows
                 return;
 
             _movie.Remove(movie.Id);
-            RefreshUI();
 
+            RefreshUI();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
         {
-            //// check for null condition first, if so then display an error accordingly
-            //if (_movie == null)
-            //{
-            //    MessageBox.Show(this, "No movie to edit", "Error", MessageBoxButtons.OK, MessageBoxIcon.Question);
-            //    return;
-            //}
-            //var form = new MovieDetailForm(_movie);
-            //Get selected product
+
+            //Get selected movie
             var movie = GetSelectedMovie();
             if (movie == null)
                 return;
@@ -110,7 +90,6 @@ namespace ChristopherHurley.MovieLib.Windows
                 MessageBox.Show(message);
 
             RefreshUI();
-
         }
 
         private void OnFileExit( object sender, EventArgs e ) => Close();
@@ -133,17 +112,13 @@ namespace ChristopherHurley.MovieLib.Windows
         {
             //Get products
             var movies = _movie.GetAll();
-            //products[0].Name = "Product A";
 
             //Bind to grid
             productBindingSource.DataSource = new List<Movie>(movies);
-            //dataGridView1.DataSource = new List<Product>(products);
         }
 
         private bool ShowConfirmation( string message, string title ) => MessageBox.Show(this, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
 
-        //private Movie _movie;
         private IMovieDatabase _movie = new MemoryMovieDatabase();
-
     }
 }

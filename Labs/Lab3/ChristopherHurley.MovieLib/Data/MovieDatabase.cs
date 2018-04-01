@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* Christopher Hurley
+ * ITSE 1430
+ * Lab 3
+ * 1 April, 2018
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -102,20 +107,7 @@ namespace ChristopherHurley.MovieLib.Data
         {
             return GetAllCore();
         }
-        //public IEnumerable<Movie> GetAll()
-        //{
-        //    //Return a copy so caller cannot change the underlying data
-        //    var items = new List<Movie>();
 
-        //    //for (var index = 0; index < _Movies.Length; ++index)
-        //    foreach (var Movie in _Movies)
-        //    {
-        //        if (Movie != null)
-        //            items.Add(Clone(Movie));
-        //    };
-
-        //    return items;
-        //}
 
         /// <summary>Removes a Movie.</summary>
         /// <param name="id">The Movie ID.</param>
@@ -144,19 +136,6 @@ namespace ChristopherHurley.MovieLib.Data
 
 
         #region Private Members
-
-        //private int FindEmptyMovieIndex()
-        //{
-        //    for (var index = 0; index < _Movies.Length; ++index)
-        //    {
-        //        if (_Movies[index] == null)
-        //            return index;
-        //    };
-
-        //    return -1;
-        //}
-
-        //Find a Movie by its ID
 
 
         #endregion

@@ -123,6 +123,20 @@ namespace ChristopherHurley.MovieLib.Windows
                 e.Cancel = true;
             } else
                 _errorProvider.SetError(textbox, "");
+            
+            
+              // more bits of trying to get a dynamic error message to detect duplicates
+              //  var existing = textbox.Text;           
+              //foreach (var Movie in MainForm.Ref2())
+              //{
+                
+              //  if ((String.Compare(Movie.Title, existing, true) == 0) && Movie.Title != existing)
+              //  {
+              //      _errorProvider.SetError(textbox, "A Movie with this name already exists");
+              //      e.Cancel = true;
+              //  } 
+
+              //}                               
         }
 
         private void _txtPrice_Validating( object sender, CancelEventArgs e )

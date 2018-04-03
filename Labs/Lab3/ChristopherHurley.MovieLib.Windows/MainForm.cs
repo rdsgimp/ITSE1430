@@ -175,5 +175,15 @@ namespace ChristopherHurley.MovieLib.Windows
         private bool ShowConfirmation( string message, string title ) => MessageBox.Show(this, message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
 
         private IMovieDatabase _movie = new MemoryMovieDatabase();
+
+        //bits from trying to get a dynamic error message to check for duplicate Title names..
+        //
+        //public static IEnumerable<Movie> Ref2()
+        //{
+        //   // MainForm.RefreshUI();
+        //    IEnumerable<Movie>  m = _movie.GetAll();
+        //    return _movie.GetAll();
+        //}
+        //public static IEnumerable<Movie> m = _movie.GetAll();
     }
 }

@@ -17,32 +17,35 @@ namespace Nile
         /// <summary>Gets or sets the description.</summary>
         public string Description
         {
-            get { return _description ?? ""; }
-            set { _description = value ?? ""; }
+            get => _description ?? "";
+            set => _description = value ?? "";
+            //get { return _description ?? ""; }
+            //set { _description = value ?? ""; }
         }
 
         /// <summary>Gets or sets the name.</summary>
         /// <value></value>
         public string Name
         {
-            get { return _name ?? ""; }
-            set { _name = value; }
+            get => _name ?? "";
+            set => _name = value;
         }
-        
+
         /// <summary>Gets or sets the price.</summary>
         public decimal Price { get; set; }
 
-        /// <summary>Gets the price, with any discontinued discounts.</summary>
-        public decimal ActualPrice
-        {
-            get 
-            {
-                if (IsDiscontinued)
-                    return Price - (Price * DiscountPercentage);
 
-                return Price;
-            }
-        }
+        /// <summary>Gets the price, with any discontinued discounts.</summary>
+        public decimal ActualPrice => IsDiscontinued ? (Price - (Price * DiscountPercentage)) : Price;
+        //   {
+            //get { return IsDiscontinued ? (Price - (Price * DiscountPercentage)) : Price; }
+            //{
+            //    if (IsDiscontinued)
+            //        return Price - (Price * DiscountPercentage);
+
+            //    return Price;
+            //}
+      //  }
 
         /// <summary>Determines if the product is discontinued.</summary>
         public bool IsDiscontinued { get; set; }

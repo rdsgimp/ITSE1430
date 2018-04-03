@@ -74,16 +74,27 @@ namespace ChristopherHurley.MovieLib.Windows
 
             var form = new MovieDetailForm("Add Movie");
 
-            // show form modally
-            var result = form.ShowDialog(this);
-            if (result != DialogResult.OK)
-                return;
+            var message2 = "temp";  //using as a flag for while loop below
 
-            //"add" the movie
-            _movie.Add(form.Movie, out var message);
-            if (!String.IsNullOrEmpty(message))
-                MessageBox.Show(message);
+            //Show form modally
+            //until message2 is null or empty we restore the window
+            //it was hacked like this to preserve the form contents, 
+            //i.e. dont dump the description info if they had something entered
+            while (!String.IsNullOrEmpty(message2))
+            {
+                var result = form.ShowDialog(this);
+                if (result != DialogResult.OK)
+                    return;
 
+                //"add" the movie
+                _movie.Add(form.Movie, out var message);
+                message2 = message;
+                if (!String.IsNullOrEmpty(message))
+                {
+                    MessageBox.Show(message);
+                    //OnProductAdd(sender, e); this was the first or second bad idea to try and redisplay the form on error
+                }
+            }
             RefreshUI();
         }
 
@@ -110,17 +121,28 @@ namespace ChristopherHurley.MovieLib.Windows
 
             var form = new MovieDetailForm(movie);
 
-            //Show form modally
-            var result = form.ShowDialog(this);
-            if (result != DialogResult.OK)
-                return;
+            var message2 = "temp";  //using as a flag for while loop below
 
-            //"update" the movie
-            //_movie = form.Movie;
-            form.Movie.Id = movie.Id;
-            _movie.Update(form.Movie, out var message);
-            if (!String.IsNullOrEmpty(message))
-                MessageBox.Show(message);
+            //Show form modally
+            //until message2 is null or empty we restore the window
+            //it was hacked like this to preserve the form contents, 
+            //i.e. dont dump the description info if they had something entered
+            while (!String.IsNullOrEmpty(message2)) 
+            {
+                var result = form.ShowDialog(this);
+                if (result != DialogResult.OK)
+                    return;
+
+                //"update" the movie
+                //_movie = form.Movie;
+                form.Movie.Id = movie.Id;
+                _movie.Update(form.Movie, out var message);
+                message2 = message;
+                if (!String.IsNullOrEmpty(message))
+                {
+                    MessageBox.Show(message);  
+                }
+            }
 
             RefreshUI();
         }

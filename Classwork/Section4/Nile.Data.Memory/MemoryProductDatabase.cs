@@ -3,6 +3,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nile.Data.Memory
 {
@@ -21,24 +22,46 @@ namespace Nile.Data.Memory
 
         protected override Product GetCore( int id )
         {
-            //for (var index = 0; index < _products.Length; ++index)
-            foreach (var product in _products)
-            {
-                if (product.Id == id)
-                    return product;
-            };
+            //option #4 combo
+            return (from p in _products
+                    where p.Id == id
+                    select p).FirstOrDefault();
 
-            return null;
+            //option #3 - Linq
+            //var items = from p in _products
+            //            where p.Id == id
+            //            select p;
+            //return items.FirstOrDefault();
+
+            //option #2 - ext. method
+            //return _products.FirstOrDefault(p => p.Id == id);
+
+            //option #1
+            //foreach (var product in _products)
+            //{
+            //    if (product.Id == id)
+            //        return product;
+            //};
+
+            //return null;
+
+            //for (var index = 0; index < _products.Length; ++index)
         }
 
         protected override IEnumerable<Product> GetAllCore ()
         {
+            //option #3 - linq
+            return from p in _products
+                   select Clone(p);
+
+            //option #2 -ext method
+            //return _products.Select(p => Clone(p));
             //Iterator syntax
-            foreach (var product in _products)
-            {
-                if (product != null)
-                    yield return Clone(product);
-            };
+            //foreach (var product in _products)
+            //{
+            //    if (product != null)
+            //        yield return Clone(product);
+            //};
         }
         
         protected override void RemoveCore ( int id )
@@ -60,13 +83,22 @@ namespace Nile.Data.Memory
 
         protected override Product GetProductByNameCore( string name )
         {
-            foreach (var product in _products)
-            {
-                if (String.Compare(product.Name, name, true) == 0)
-                    return product;
-            };
+            //option #3 - linq
+            return (from p in _products
+                    where String.Compare(p.Name, name, true) == 0
+                    select p).FirstOrDefault();
+            
+            //option #2 extention
+            //return _products.FirstOrDefault(p => String.Compare(p.Name, name, true) == 0);
+            
+            //option #1
+            //foreach (var product in _products)
+            //{
+            //    if (String.Compare(product.Name, name, true) == 0)
+            //        return product;
+            //};
 
-            return null;
+            //return null;
         }
 
         #region Private Members

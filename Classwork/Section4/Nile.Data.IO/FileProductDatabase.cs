@@ -167,7 +167,7 @@ namespace Nile.Data.IO
                 };
 
                 
-            }catch (ArgumentException e)
+            }catch (ArgumentException )
             {
                 //throw e;
                 throw;

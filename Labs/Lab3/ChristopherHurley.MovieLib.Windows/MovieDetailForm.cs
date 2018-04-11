@@ -126,17 +126,21 @@ namespace ChristopherHurley.MovieLib.Windows
             
             
               // more bits of trying to get a dynamic error message to detect duplicates
-              //  var existing = textbox.Text;           
-              //foreach (var Movie in MainForm.Ref2())
-              //{
-                
-              //  if ((String.Compare(Movie.Title, existing, true) == 0) && Movie.Title != existing)
-              //  {
-              //      _errorProvider.SetError(textbox, "A Movie with this name already exists");
-              //      e.Cancel = true;
-              //  } 
+                var existing = textbox.Text;
+            //MainForm.Ref2();
+            //((MainForm)Parent).Ref2();
+            var m = MainForm._movie2.GetAll();
 
-              //}                               
+            foreach (var Movie in m)
+              {
+                
+                if ((String.Compare(Movie.Title, existing, true) == 0) && Movie.Title != existing)
+                {
+                    _errorProvider.SetError(textbox, "A Movie with this name already exists");
+                    e.Cancel = true;
+                } 
+
+              }                               
         }
 
         private void _txtPrice_Validating( object sender, CancelEventArgs e )

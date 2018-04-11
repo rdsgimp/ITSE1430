@@ -70,6 +70,8 @@ namespace ChristopherHurley.MovieLib.Windows
 
         private void OnProductAdd( object sender, EventArgs e )
         {
+            RefreshUI();
+
             var button = sender as ToolStripMenuItem;
 
             var form = new MovieDetailForm("Add Movie");
@@ -100,6 +102,8 @@ namespace ChristopherHurley.MovieLib.Windows
 
         private void OnProductRemove( object sender, EventArgs e )
         {
+            RefreshUI();
+
             var movie = GetSelectedMovie();
             if (movie == null)
                 return;
@@ -113,6 +117,7 @@ namespace ChristopherHurley.MovieLib.Windows
 
         private void OnProductEdit( object sender, EventArgs e )
         {
+            RefreshUI();
 
             //Get selected movie
             var movie = GetSelectedMovie();
@@ -163,10 +168,12 @@ namespace ChristopherHurley.MovieLib.Windows
 
             return null;
         }
-        private void RefreshUI()
+        protected void RefreshUI()
         {
             //Get products
             var movies = _movie.GetAll();
+            _movie2 = _movie;
+            _m = _movie.GetAll();
 
             //Bind to grid
             productBindingSource.DataSource = new List<Movie>(movies);
@@ -176,14 +183,26 @@ namespace ChristopherHurley.MovieLib.Windows
 
         private IMovieDatabase _movie = new MemoryMovieDatabase();
 
+        public static IMovieDatabase _movie2 = new MemoryMovieDatabase();
+        public  IEnumerable<Movie> _m ;
+
+
+        //public static MemoryMovieDatabase database = _movie.GetAll();
+
+        //IMovieDatabase _movie2 = _movies.GetAll();
+
+
+
         //bits from trying to get a dynamic error message to check for duplicate Title names..
         //
-        //public static IEnumerable<Movie> Ref2()
-        //{
-        //   // MainForm.RefreshUI();
-        //    IEnumerable<Movie>  m = _movie.GetAll();
-        //    return _movie.GetAll();
-        //}
+        public void Ref2()
+        {
+           // _m = _movie2.GetAll();
+            RefreshUI();
+           // MainForm.RefreshUI();
+            IEnumerable<Movie>  m = _movie2.GetAll();
+           // return _movie2.GetAll();
+        }
         //public static IEnumerable<Movie> m = _movie.GetAll();
     }
 }

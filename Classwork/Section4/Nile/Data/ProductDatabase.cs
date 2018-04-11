@@ -14,6 +14,9 @@ namespace Nile.Data
         /// <param name="product">The product to add.</param>
         /// <param name="message">Error message.</param>
         /// <returns>The added product.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="product"/> is null.</exception>
+        /// <exception cref="ValidationException"><paramref name="product"/> is invalid.</exception>
+        /// <exception cref="Exception">A product with the same name already exists.</exception>
         /// <remarks>
         /// Returns an error if product is null, invalid or if a product
         /// with the same name already exists.
@@ -22,8 +25,8 @@ namespace Nile.Data
         {
             //Check for null
             //if (product == null)
-               // throw new ArgumentNullException(nameof(product));
-              product = product ?? throw new ArgumentNullException(nameof(product));
+                //throw new ArgumentNullException(nameof(product));
+            product = product ?? throw new ArgumentNullException(nameof(product));
 
             //Validate product 
             product.Validate();
@@ -43,7 +46,7 @@ namespace Nile.Data
             //    message = "Product already exists.";
             //    return null;
             //};
-
+            
             return AddCore(product);
         }
 
@@ -51,36 +54,40 @@ namespace Nile.Data
         /// <returns>The list of products.</returns>
         public IEnumerable<Product> GetAll ()
         {
-            // option #2 - extension
+            // Option 2- extension
             //return GetAllCore()
-            //    .OrderBy(p => p.Name)
-            //    .ThenByDescending(p => p.Id)
-            //    .Select(p => p);
+            //            .OrderBy(p => p.Name)
+            //            .ThenByDescending(p => p.Id)
+            //            .Select(p => p);
 
-            //option #1 - linq
+            // Option 1 - LINQ
             return from p in GetAllCore()
-                   orderby p.Name   //, p.id descending
-                   select p;
-
-        }        
+                   orderby p.Name, p.Id descending
+                   select p;                                    .
+        }
 
         /// <summary>Removes a product.</summary>
         /// <param name="id">The product ID.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="id"/> is less than or equal to zero.</exception>
         public void Remove ( int id )
         {
-            // Return an error if id <= 0
+            //Return an error if id <= 0
             if (id <= 0)
-                throw new ArgumentOutOfRangeException(nameof(id), "id must be > 0");
-            //{
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0");
+
             //if (id > 0)
+            //{
                 RemoveCore(id);
             //};
         }
 
         /// <summary>Edits an existing product.</summary>
         /// <param name="product">The product to update.</param>
-        /// <param name="message">Error message.</param>
         /// <returns>The updated product.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="product"/> is null.</exception>
+        /// <exception cref="ValidationException"><paramref name="product"/> is invalid.</exception>
+        /// <exception cref="Exception">A product with the same name already exists.</exception>
+        /// <exception cref="ArgumentException">The product does not exist.</exception>
         /// <remarks>
         /// Returns an error if product is null, invalid, product name
         /// already exists or if the product cannot be found.
@@ -108,7 +115,7 @@ namespace Nile.Data
             // Verify unique product
             var existing = GetProductByNameCore(product.Name);
             if (existing != null && existing.Id != product.Id)
-                throw new Exception("product already exists");
+                throw new Exception("Product already exists");
             //{
             //    message = "Product already exists.";
             //    return null;

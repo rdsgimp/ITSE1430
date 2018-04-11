@@ -39,7 +39,8 @@ namespace Nile.Data.IO
         protected override Product GetCore( int id )
         {
             EnsureInitialized();
-            //Enumerable.FirstOrDefault()
+
+            //Use Enumerable.FirstOrDefault
             return _items.FirstOrDefault(i => i.Id == id);
             //foreach (var item in _items)
             //{
@@ -49,7 +50,10 @@ namespace Nile.Data.IO
 
             //return null;
         }
-        //private bool IsId (Product product)
+        
+        //Compiler converts previous lambda into a private type with
+        //this method, effectively
+        //private bool IsId ( Product product )
         //{
         //    return product.Id == id;
         //}
@@ -57,7 +61,11 @@ namespace Nile.Data.IO
         protected override Product GetProductByNameCore( string name )
         {
             EnsureInitialized();
-            return _items.FirstOrDefault(i => String.Compare(i.Name, name, true) == 0);
+
+            //Use Enumerable.FirstOrDefault
+            return _items.FirstOrDefault(
+                    i => String.Compare(i.Name, name, true) == 0);
+
             //foreach (var item in _items)
             //{
             //    if (String.Compare(item.Name, name, true) == 0)
@@ -108,11 +116,13 @@ namespace Nile.Data.IO
                 //    if (item.Id > _id)
                 //        _id = item.Id;
                 //};
+                //Using Enumerable.Any
                 if (_items.Any())
                 {
-                    _id = _items.Max(i => i.Id) + 1;                    
-                    //++_id;
-                }
+                    //Using Enumerable.Max
+                    _id = _items.Max(i => i.Id);
+                    ++_id;
+                };
             };
         }
 
@@ -127,6 +137,8 @@ namespace Nile.Data.IO
                     return items;
 
                 var lines = File.ReadAllLines(_filename);
+
+                //Could do with Enumerable.Select
                 foreach (var line in lines)
                 {
                     var fields = line.Split(',');
@@ -145,8 +157,25 @@ namespace Nile.Data.IO
                 return items;
             } catch (Exception e)
             {
+                //Example of wrapping an exception to hide the details
                 throw new Exception("Failure loading data", e);
-            }
+            };
+        }
+
+        private void SaveData()
+        {
+            using (var stream = File.OpenWrite(_filename))
+            using (var writer = new StreamWriter(stream))
+            { 
+                //Not easily doable with Enumerable, stick with foreach
+                foreach (var item in _items)
+                {
+                    var line = $"{item.Id},{item.Name},{item.Description}," +
+                               $"{item.Price},{(item.IsDiscontinued ? 1 : 0)}";
+
+                    writer.WriteLine(line);
+                };            
+            };
         }
 
         private void SaveDataPoorer()
@@ -155,8 +184,8 @@ namespace Nile.Data.IO
             StreamWriter writer = null;
             try
             {
-                 stream = File.OpenWrite(_filename);
-                 writer = new StreamWriter(stream);
+                stream = File.OpenWrite(_filename);
+                writer = new StreamWriter(stream);
 
                 foreach (var item in _items)
                 {
@@ -164,47 +193,31 @@ namespace Nile.Data.IO
                                $"{item.Price},{(item.IsDiscontinued ? 1 : 0)}";
 
                     writer.WriteLine(line);
-                };
-
-                
-            }catch (ArgumentException )
+                };                
+            } catch (ArgumentException e)
             {
+                //Example of rethrowing an exception
+                //Never right!!!
                 //throw e;
                 throw;
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
-                throw new Exception("Save Failed", e);
-            }
-            finally
+                //Example of wrapping an exception to hide details
+                throw new Exception("Save failed", e);
+            } finally
             {
                 writer?.Close();
                 stream?.Close();
-            }
+            };
         }
-
-        private void SaveData()
-        {
-            using (var stream = File.OpenWrite(_filename))
-            using (var writer = new StreamWriter(stream))
-            {
-                
-                foreach (var item in _items)
-                {
-                    var line = $"{item.Id},{item.Name},{item.Description}," +
-                               $"{item.Price},{(item.IsDiscontinued ? 1 : 0)}";
-
-                    writer.WriteLine(line);
-                };
-            }
-        }
-        
-
 
         private void SaveDataNonstream ()
         {
-           var lines = _items.Select(item => $"{item.Id},{item.Name},{item.Description}," +
-                                             $"{item.Price},{(item.IsDiscontinued ? 1 : 0)}");
+            //Using Enumerable.Select
+            var lines = _items.Select(item => 
+                            $"{item.Id},{item.Name},{item.Description}," +
+                            $"{item.Price},{(item.IsDiscontinued ? 1 : 0)}");
+
             //var lines = new List<string>();
 
             //foreach (var item in _items)

@@ -12,8 +12,7 @@ namespace Nile.Data
         /// <summary>Seeds the database.</summary>
         /// <param name="source">The source.</param>
         public static void Seed ( this IProductDatabase source )
-        {
-            //var message = "";
+        {            
             source.Add(new Product() {
                 Name = "iPhone X",
                 IsDiscontinued = true,

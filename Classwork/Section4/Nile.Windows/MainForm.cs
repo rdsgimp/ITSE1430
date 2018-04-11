@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Nile.Data;
+using Nile.Data.IO;
 using Nile.Data.Memory;
 
 namespace Nile.Windows
@@ -23,6 +24,8 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
+            _database = new FileProductDatabase("products.csv");
+
             RefreshUI();
         }
 
@@ -34,7 +37,7 @@ namespace Nile.Windows
             var product = GetSelectedProduct();
             if (product == null)
                 return;
-
+            
             EditProduct(product);
         }
 
@@ -73,21 +76,17 @@ namespace Nile.Windows
                 return;
 
             //Add to database
-            // _database.Add(form.Product);
+            //_database.Add(form.Product);
             try
             {
-                _database.Add(form.Product);
+                _database.Add(null);
             } catch (NotImplementedException)
             {
                 MessageBox.Show("not implemented yet");
-            } catch (Exception ef)
+            } catch (Exception ex)
             {
-                MessageBox.Show(ef.Message);
-            }
-
-            
-           // if (!String.IsNullOrEmpty(message))
-           //     MessageBox.Show(message);
+                MessageBox.Show(ex.Message);
+            };
 
             RefreshUI();
         }
@@ -103,13 +102,7 @@ namespace Nile.Windows
                 return;
             };
 
-            try
-            {
-                EditProduct(product);
-            } catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            EditProduct(product);            
         }
 
         private void OnProductRemove( object sender, EventArgs e )
@@ -122,13 +115,8 @@ namespace Nile.Windows
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             };
-            try
-            {
-                DeleteProduct(product);
-            } catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
+            DeleteProduct(product);
         }
         
         private void OnHelpAbout( object sender, EventArgs e )
@@ -149,10 +137,10 @@ namespace Nile.Windows
             try
             {
                 _database.Remove(product.Id);
-            }catch (Exception ex)
+            } catch (Exception e)
             {
-                MessageBox.Show(ex.Message);
-            }
+                MessageBox.Show(e.Message);
+            };
 
             RefreshUI();
         }
@@ -174,9 +162,7 @@ namespace Nile.Windows
             } catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-            }
-            //if (!String.IsNullOrEmpty(message))
-            //    MessageBox.Show(message);
+            };
 
             RefreshUI();
         }
@@ -186,28 +172,23 @@ namespace Nile.Windows
         //    public int Index { get; set; }
         //    public Product Product { get; set; }
         //}
-
         private Product GetSelectedProduct ( )
         {
-            //var items = (from r in dataGridView1.SelectedRows.OfType < DataGridViewRow >()
-            //             select new SelectedRowType() {
-            //                 Index = r.Index,
-            //                 Product = r.DataBoundItem as Product
-            //             }).FirstOrDefault();
-            //return items.Product;
+            //This is correct, just demoing something new...
+            //Get the first selected row in the grid, if any
+            //var items = (from r in dataGridView1.SelectedRows.OfType<DataGridViewRow>()
+            //            select new SelectedRowType() {
+            //                Index = r.Index,
+            //                Product = r.DataBoundItem as Product
+            //            }).FirstOrDefault();
+            //Playing with anonymous types
             var items = (from r in dataGridView1.SelectedRows.OfType<DataGridViewRow>()
                          select new {
                              Index = r.Index,
                              Product = r.DataBoundItem as Product
                          }).FirstOrDefault();
-            
+
             return items.Product;
-
-            //this is correct, just demoing something new
-            //Get the first selected row in the grid, if any
-            //return (from r in dataGridView1.SelectedRows.OfType<DataGridViewRow>()
-            //        select r.DataBoundItem as Product).FirstOrDefault();
-
 
             //if (dataGridView1.SelectedRows.Count > 0)
             //    return dataGridView1.SelectedRows[0].DataBoundItem as Product;
@@ -221,11 +202,12 @@ namespace Nile.Windows
             IEnumerable<Product> products = null;
             try
             {
-                 products = _database.GetAll();
-            }catch (Exception)
+                products = _database.GetAll();
+            } catch (Exception)
             {
                 MessageBox.Show("Error loading products");
-            }
+            };
+
             productBindingSource.DataSource = products?.ToList();
         }
 
@@ -236,7 +218,7 @@ namespace Nile.Windows
                            == DialogResult.Yes;
         }
 
-        private IProductDatabase _database = new MemoryProductDatabase();
+        private IProductDatabase _database;
 
         #endregion
     }

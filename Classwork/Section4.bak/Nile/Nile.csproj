@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4D817F9B-2640-4BD5-B643-B274CE9F3C2E}</ProjectGuid>
+    <ProjectGuid>{F3B8DD6E-7216-496A-BD6A-BEE83DBF9CD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nile.Data.IO</RootNamespace>
-    <AssemblyName>Nile.Data.IO</AssemblyName>
+    <RootNamespace>Nile</RootNamespace>
+    <AssemblyName>Nile</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,14 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileProductDatabase.cs" />
+    <Compile Include="Data\IProductDatabase.cs" />
+    <Compile Include="Data\ProductDatabase.cs" />
+    <Compile Include="Data\ProductDatabaseExtensions.cs" />
+    <Compile Include="ObjectValidator.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Nile\Nile.csproj">
-      <Project>{f3b8dd6e-7216-496a-bd6a-bee83dbf9cd4}</Project>
-      <Name>Nile</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

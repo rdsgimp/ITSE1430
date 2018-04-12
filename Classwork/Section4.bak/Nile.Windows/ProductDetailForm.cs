@@ -19,7 +19,7 @@ namespace Nile.Windows
             Text = title;
         }
 
-        public ProductDetailForm( Product product ) : this("Edit Product")
+        public ProductDetailForm( Product product ) :this("Edit Product")
         {
             Product = product;
         }
@@ -27,7 +27,7 @@ namespace Nile.Windows
 
         /// <summary>Gets or sets the product being edited.</summary>
         public Product Product { get; set; }
-
+        
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
@@ -50,7 +50,7 @@ namespace Nile.Windows
         {
         }
 
-        private void OnSave( object sender, EventArgs e )
+        private void OnSave ( object sender, EventArgs e )
         {
             //Force validation of child controls
             if (!ValidateChildren())
@@ -65,20 +65,14 @@ namespace Nile.Windows
             };
 
             //Validate product using IValidatableObject
-            //var message = product.Validate();
-            //if (!String.IsNullOrEmpty(message))
-            //{
-            //    DisplayError(message);
-            //    return;
-            //};
-            var errors = product.TryValidate();
+            var errors = ObjectValidator.TryValidate(product);
             if (errors.Count() > 0)
             {
                 //Get first error
                 DisplayError(errors.ElementAt(0).ErrorMessage);
                 return;
-            };
-
+            };            
+            
             //Return from form
             Product = product;
             DialogResult = DialogResult.OK;
@@ -86,13 +80,13 @@ namespace Nile.Windows
             Close();
         }
         #endregion
-
-        private void DisplayError( string message )
+        
+        private void DisplayError ( string message )
         {
             MessageBox.Show(this, message, "Error", MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
         }
-        private decimal ConvertToPrice( TextBox control )
+        private decimal ConvertToPrice ( TextBox control )
         {
             if (Decimal.TryParse(control.Text, out var price))
                 return price;

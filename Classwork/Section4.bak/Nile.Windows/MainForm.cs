@@ -4,13 +4,12 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Nile.Data;
 using Nile.Data.IO;
 using Nile.Data.Memory;
-using Nile.Data.Sql;
 
 namespace Nile.Windows
 {
@@ -25,15 +24,40 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            //_database = new FileProductDatabase("products.csv");
-            var connString = ConfigurationManager.ConnectionStrings["NileDatabase"];
-            _database = new SqlProductDatabase(connString.ConnectionString);
+            _database = new FileProductDatabase("products.csv");
 
-            //_database.Seed();
             RefreshUI();
         }
 
         #region Event Handlers
+
+        //Called when a cell is double clicked
+        private void OnCellDoubleClick( object sender, DataGridViewCellEventArgs e )
+        {
+            var product = GetSelectedProduct();
+            if (product == null)
+                return;
+            
+            EditProduct(product);
+        }
+
+        //Called when a key is pressed while in a cell
+        private void OnCellKeyDown( object sender, KeyEventArgs e )
+        {
+            var product = GetSelectedProduct();
+            if (product == null)
+                return;
+
+            if (e.KeyCode == Keys.Delete)
+            {
+                e.Handled = true;
+                DeleteProduct(product);
+            } else if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                EditProduct(product);
+            };
+        }
 
         private void OnFileExit( object sender, EventArgs e )
         {
@@ -64,23 +88,65 @@ namespace Nile.Windows
                 MessageBox.Show(ex.Message);
             };
 
-            RefreshUI();               
+            RefreshUI();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
         {
-            //Get the selected product
+            //Get selected product
             var product = GetSelectedProduct();
             if (product == null)
             {
-                MessageBox.Show(this, "No product selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, "No product selected", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
+            };
 
-            EditProduct(product);
+            EditProduct(product);            
         }
 
-        private void EditProduct(Product product)
+        private void OnProductRemove( object sender, EventArgs e )
+        {
+            //Get selected product
+            var product = GetSelectedProduct();
+            if (product == null)
+            {
+                MessageBox.Show(this, "No product selected", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            };
+
+            DeleteProduct(product);
+        }
+        
+        private void OnHelpAbout( object sender, EventArgs e )
+        {
+            MessageBox.Show(this, "Not implemented", "Help About", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+        #endregion
+
+        #region Private Members
+
+        //Helper method to handle deleting products
+        private void DeleteProduct( Product product )
+        {
+            if (!ShowConfirmation("Are you sure?", "Remove Product"))
+                return;
+
+            //Remove product
+            try
+            {
+                _database.Remove(product.Id);
+            } catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            };
+
+            RefreshUI();
+        }
+
+        //Helper method to handle editing products
+        private void EditProduct( Product product )
         {
             var form = new ProductDetailForm(product);
             var result = form.ShowDialog(this);
@@ -96,73 +162,33 @@ namespace Nile.Windows
             } catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-            }
+            };
 
             RefreshUI();
         }
-
-        private void OnProductRemove( object sender, EventArgs e )
-        {
-            //Get the selected product
-            var product = GetSelectedProduct();
-            if (product == null)
-            {
-                MessageBox.Show(this, "No product selected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            DeleteProduct(product);
-        }
-
-        private void DeleteProduct( Product product )
-        {
-            if (!ShowConfirmation("Are you sure?", "Remove Product"))
-                return;
-
-            //Remove product
-            try
-            {
-                _database.Remove(product.Id);
-            } catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            
-            RefreshUI();
-        }
-
-        private void OnHelpAbout( object sender, EventArgs e )
-        {
-            MessageBox.Show(this, "Not implemented", "Help About", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        }
-        #endregion
-
-        #region Private members
 
         //private sealed class SelectedRowType
         //{
         //    public int Index { get; set; }
         //    public Product Product { get; set; }
         //}
-
-        private Product GetSelectedProduct()
+        private Product GetSelectedProduct ( )
         {
-            //Correct, demoing something new
-            //return (from r in dataGridView1.SelectedRows.OfType<DataGridViewRow>()
-            //        select r.DataBoundItem as Product).FirstOrDefault();
-
+            //This is correct, just demoing something new...
+            //Get the first selected row in the grid, if any
+            //var items = (from r in dataGridView1.SelectedRows.OfType<DataGridViewRow>()
+            //            select new SelectedRowType() {
+            //                Index = r.Index,
+            //                Product = r.DataBoundItem as Product
+            //            }).FirstOrDefault();
+            //Playing with anonymous types
             var items = (from r in dataGridView1.SelectedRows.OfType<DataGridViewRow>()
                          select new {
-                             Index = r.Index, Product = r.DataBoundItem as Product
+                             Index = r.Index,
+                             Product = r.DataBoundItem as Product
                          }).FirstOrDefault();
 
             return items.Product;
-
-            //var items = (from r in dataGridView1.SelectedRows.OfType<DataGridViewRow>()
-            //        select new SelectedRowType() {
-            //            Index = r.Index, Product = r.DataBoundItem as Product }).FirstOrDefault();
-
-            //return items.Product;
 
             //if (dataGridView1.SelectedRows.Count > 0)
             //    return dataGridView1.SelectedRows[0].DataBoundItem as Product;
@@ -182,7 +208,6 @@ namespace Nile.Windows
                 MessageBox.Show("Error loading products");
             };
 
-            //Bind to grid
             productBindingSource.DataSource = products?.ToList();
         }
 
@@ -191,36 +216,6 @@ namespace Nile.Windows
             return MessageBox.Show(this, message, title
                              , MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                            == DialogResult.Yes;
-        }
-
-        private void productBindingSource_CurrentChanged( object sender, EventArgs e )
-        {
-
-        }
-
-        private void OnCellDoubleClick( object sender, DataGridViewCellEventArgs e )
-        {
-            var product = GetSelectedProduct();
-            if (product == null)
-                return;
-            EditProduct(product);
-        }
-
-        private void OnCellKeyDown( object sender, KeyEventArgs e )
-        {
-            var product = GetSelectedProduct();
-            if (product == null)
-                return;
-            if (e.KeyCode == Keys.Delete)
-            {
-                e.Handled = true;
-                DeleteProduct(product);
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                e.Handled = true;
-                EditProduct(product);
-            }
         }
 
         private IProductDatabase _database;

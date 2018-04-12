@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace Nile
 {
+    /// <summary>Provides support for validating data.</summary>
     public static class ObjectValidator
     {
-        public static IEnumerable<ValidationResult> TryValidate ( this IValidatableObject source)
+        /// <summary>Validates an object and all properties.</summary>
+        /// <param name="value">The object to validate.</param>
+        /// <returns>The validation results.</returns>
+        public static IEnumerable<ValidationResult> TryValidate ( this IValidatableObject source )
         {
             var context = new ValidationContext(source);
             var errors = new Collection<ValidationResult>();
@@ -19,7 +23,7 @@ namespace Nile
             return errors;
         }
 
-        public static void Validate ( this IValidatableObject source)
+        public static void Validate ( this IValidatableObject source )
         {
             var context = new ValidationContext(source);
             Validator.ValidateObject(source, context, true);

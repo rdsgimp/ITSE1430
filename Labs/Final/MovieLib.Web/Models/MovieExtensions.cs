@@ -30,7 +30,7 @@ namespace MovieLib.Web.Models
             {
                 Id = source.Id,
                 Title = source.Title,
-                Rating = source.Rating,
+                Rating = source.Rating, //CR2 Hurley - rating property was missing in conversions
                 Description = source.Description,
                 Length = source.Length,
                 IsOwned = source.IsOwned,
@@ -47,7 +47,7 @@ namespace MovieLib.Web.Models
             {
                 Id = source.Id,
                 Title = source.Title,
-                Rating = source.Rating,
+                Rating = source.Rating, //CR2 Hurley - rating property was missing in conversions
                 Description = source.Description,
                 Length = source.Length,
                 IsOwned = source.IsOwned,

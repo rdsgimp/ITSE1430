@@ -28,6 +28,7 @@ namespace MovieLib.Web.Models
         public Rating Rating { get; set; }
 
         [Display(Name = "Release Year")]
+        [Range(1900, 2100, ErrorMessage = "Release year must be between 1900 and 2100")] //CR3 Hurley - Added range restriction and error message for user to ReleaseYear field
         public int ReleaseYear { get; set; }
 
         public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext ) => Enumerable.Empty<ValidationResult>();        

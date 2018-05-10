@@ -46,7 +46,7 @@ namespace MovieLib.Data
 
         /// <summary>Gets all the movies.</summary>
         /// <returns>The list of movies.</returns>
-        public IEnumerable<Movie> GetAll ()
+        public IEnumerable<Movie> GetAll () //CR1 Hurley - Case of command caused method not to be seen
         {
             return GetAllCore();
         }
@@ -64,7 +64,7 @@ namespace MovieLib.Data
                 throw new ArgumentOutOfRangeException(nameof(id), "ID must be > 0.");
 
             var existing = GetCore(id);
-            if (existing == null)
+            if (existing == null) //CR4 Hurley - Movie was not deleted, fixed if condition from != to ==
                 return false;
 
             RemoveCore(id);
@@ -97,6 +97,10 @@ namespace MovieLib.Data
             existing = FindByTitleCore(movie.Title);
             if (existing != null && existing.Id != movie.Id)
                 throw new ArgumentException("Movie with same title already exists.", nameof(movie));
+
+            //if
+            //    (existing.ReleaseYear < 1900 || existing.ReleaseYear > 2100)
+            //    throw new ArgumentOutOfRangeException("Movie Release Year must be >1900 and <2100");
                                   
             return UpdateCore(movie);
         }

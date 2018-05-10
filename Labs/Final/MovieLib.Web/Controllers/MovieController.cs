@@ -98,7 +98,7 @@ namespace MovieLib.Web.Controllers
 
         public ActionResult List()
         {
-            var movies = from m in _database.GetAll()
+            var movies = from m in _database.GetAll() orderby m.Title //CR5 Hurley - added order by movie title to sort by movie titles
                          select m;
             
             return View(movies.ToViewModel());
